@@ -9,6 +9,7 @@ import methodOverride from "method-override";
 import cors from "cors";
 import "@tsed/ajv";
 import "@tsed/mongoose";
+import "@tsed/swagger";
 import { config } from "./config/index";
 import * as rest from "./controllers/rest/index";
 
