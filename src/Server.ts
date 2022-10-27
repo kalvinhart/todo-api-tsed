@@ -38,6 +38,11 @@ import * as rest from "./controllers/rest/index";
     },
   },
   exclude: ["**/*.spec.ts"],
+  swagger: [
+    {
+      path: "/docs",
+    },
+  ],
 })
 export class Server {
   @Inject()
