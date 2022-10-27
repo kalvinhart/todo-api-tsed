@@ -28,7 +28,7 @@ export class TodoService {
     });
   }
 
-  async delete(id: string): Promise<void> {
-    await this.Todo.deleteOne({ id });
+  async delete(id: string): Promise<void | null> {
+    return await this.Todo.findByIdAndDelete(id);
   }
 }
