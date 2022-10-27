@@ -1,5 +1,5 @@
 export default {
   id: "default",
-  url: process.env.DEFAULT_URL || "mongodb://localhost:27017/default",
-  connectionOptions: { }
+  url: process.env.DEFAULT_URL || "mongodb://localhost:27017/todo",
+  connectionOptions: {},
 };

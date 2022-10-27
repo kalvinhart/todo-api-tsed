@@ -1,6 +1,6 @@
-import {join} from "path";
-import {Configuration, Inject} from "@tsed/di";
-import {PlatformApplication} from "@tsed/common";
+import { join } from "path";
+import { Configuration, Inject } from "@tsed/di";
+import { PlatformApplication } from "@tsed/common";
 import "@tsed/platform-express"; // /!\ keep this import
 import bodyParser from "body-parser";
 import compress from "compression";
@@ -9,7 +9,8 @@ import methodOverride from "method-override";
 import cors from "cors";
 import "@tsed/ajv";
 import "@tsed/mongoose";
-import {config} from "./config/index";
+import "@tsed/swagger";
+import { config } from "./config/index";
 import * as rest from "./controllers/rest/index";
 
 @Configuration({
@@ -19,9 +20,7 @@ import * as rest from "./controllers/rest/index";
   httpsPort: false, // CHANGE
   componentsScan: false,
   mount: {
-    "/rest": [
-      ...Object.values(rest)
-    ]
+    "/api": [...Object.values(rest)],
   },
   middlewares: [
     cors(),
@@ -30,18 +29,21 @@ import * as rest from "./controllers/rest/index";
     methodOverride(),
     bodyParser.json(),
     bodyParser.urlencoded({
-      extended: true
-    })
+      extended: true,
+    }),
   ],
   views: {
     root: join(process.cwd(), "../views"),
     extensions: {
-      ejs: "ejs"
-    }
+      ejs: "ejs",
+    },
   },
-  exclude: [
-    "**/*.spec.ts"
-  ]
+  exclude: ["**/*.spec.ts"],
+  swagger: [
+    {
+      path: "/docs",
+    },
+  ],
 })
 export class Server {
   @Inject()
