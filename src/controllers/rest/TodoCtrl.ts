@@ -53,7 +53,7 @@ export class TodoController {
   @Returns(200)
   @Returns(404)
   async delete(@PathParams("id") id: string): Promise<void> {
-    const deleted = this.todoService.delete(id);
+    const deleted = await this.todoService.delete(id);
 
     if (!deleted) throw new NotFound("Todo item does not exist");
   }
