@@ -21,7 +21,6 @@ export class TodoController {
   @Returns(200, TodoModel)
   @Returns(404)
   async getById(@PathParams("id") id: string): Promise<TodoModel> {
-    console.log(id);
     const todo = await this.todoService.getById(id);
 
     if (!todo) throw new NotFound("Todo item does not exist");
@@ -36,12 +35,15 @@ export class TodoController {
     return await this.todoService.create(todo);
   }
 
-  @Put()
+  @Put("/:id")
   @Description("Updates an existing todo.")
   @Returns(200, TodoModel)
   @Returns(404)
-  async update(@BodyParams() todo: TodoModel): Promise<TodoModel> {
-    const updatedTodo = await this.todoService.update(todo);
+  async update(
+    @PathParams("id") id: string,
+    @BodyParams() todo: TodoModel
+  ): Promise<TodoModel> {
+    const updatedTodo = await this.todoService.update(id, todo);
 
     if (!updatedTodo) throw new NotFound("Todo item does not exist");
 

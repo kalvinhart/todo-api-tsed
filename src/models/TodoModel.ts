@@ -1,5 +1,5 @@
 import { Model, ObjectID } from "@tsed/mongoose";
-import { Default, Required } from "@tsed/schema";
+import { Default, Name, Required } from "@tsed/schema";
 /**
  * ## How to inject model?
  *
@@ -18,6 +18,7 @@ import { Default, Required } from "@tsed/schema";
   name: "todos",
 })
 export class TodoModel {
+  @Name("id")
   @ObjectID("id")
   _id: string;
 
