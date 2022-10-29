@@ -21,7 +21,6 @@ export class TodoController {
   @Returns(200, TodoModel)
   @Returns(404)
   async getById(@PathParams("id") id: string): Promise<TodoModel> {
-    console.log(id);
     const todo = await this.todoService.getById(id);
 
     if (!todo) throw new NotFound("Todo item does not exist");
