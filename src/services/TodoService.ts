@@ -21,8 +21,8 @@ export class TodoService {
     return await newTodo.save();
   }
 
-  async update(todo: TodoModel): Promise<TodoModel | null> {
-    return await this.Todo.findByIdAndUpdate(todo._id, todo, {
+  async update(id: string, todo: TodoModel): Promise<TodoModel | null> {
+    return await this.Todo.findByIdAndUpdate(id, todo, {
       runValidators: true,
       new: true,
     });
