@@ -9,7 +9,7 @@ export type ProfanityPlainTextResponse = string;
 
 @Injectable()
 export class ProfanityService {
-  url: string = "https://www.purgomalum.com/service/";
+  private url: string = "https://www.purgomalum.com/service/";
 
   async checkInput(
     input: string,
