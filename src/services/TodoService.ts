@@ -1,6 +1,7 @@
 import { Inject, Injectable } from "@tsed/di";
 import { MongooseModel } from "@tsed/mongoose";
 import { TodoModel } from "src/models/TodoModel";
+import { EventService } from "./EventService";
 import { ProfanityJSONResponse, ProfanityService } from "./ProfanityService";
 
 @Injectable()
@@ -8,7 +9,10 @@ export class TodoService {
   @Inject(TodoModel)
   private Todo: MongooseModel<TodoModel>;
 
-  constructor(private profanityService: ProfanityService) {}
+  constructor(
+    private profanityService: ProfanityService,
+    private eventService: EventService
+  ) {}
 
   async getAll(): Promise<TodoModel[]> {
     return await this.Todo.find();
@@ -22,8 +26,11 @@ export class TodoService {
     todo.text = await this.checkForProfanity(todo.text);
 
     const newTodo = new this.Todo(todo);
+    await newTodo.save();
 
-    return await newTodo.save();
+    this.eventService.sendTodo(newTodo);
+
+    return newTodo;
   }
 
   async update(id: string, todo: TodoModel): Promise<TodoModel | null> {

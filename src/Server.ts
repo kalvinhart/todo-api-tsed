@@ -15,7 +15,7 @@ import * as rest from "./controllers/rest/index";
 
 @Configuration({
   ...config,
-  acceptMimes: ["application/json"],
+  acceptMimes: ["application/json", "text/event-stream"],
   httpPort: process.env.PORT || 8083,
   httpsPort: false, // CHANGE
   componentsScan: false,
